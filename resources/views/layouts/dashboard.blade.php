@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Starter</title>
+    <title>{{ $page_title }}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{{ asset('/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
@@ -60,26 +60,33 @@ desired effect
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <!-- Main Header -->
-    @include('dashboard.__includes._header')
-    <!-- /. Main Header -->
+@include('dashboard.__includes._header')
+<!-- /. Main Header -->
 
     <!-- Left side column. contains the logo and sidebar -->
-    @include('dashboard.__includes._sidebar')
-    <!-- /. Left side column. -->
+@include('dashboard.__includes._sidebar')
+<!-- /. Left side column. -->
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Page Header
-                <small>Optional description</small>
+                {{ $page_header }}
+                <small>{{ $page_description }}</small>
             </h1>
             <ol class="breadcrumb">
-                <li>
-                    <a href="#"><i class="fa fa-dashboard"></i> Level</a>
-                </li>
-                <li class="active">Here</li>
+                @foreach($page_breadcrumbs as $breadcrumb)
+                    @if(isset($breadcrumb['link']))
+                        <li>
+                            <a href="{{ $breadcrumb['link'] }}">
+                                <i class="fa fa-dashboard"></i> {{ $breadcrumb['title'] }}
+                            </a>
+                        </li>
+                    @else
+                        <li class="active">{{ $breadcrumb['title'] }}</li>
+                    @endif
+                @endforeach
             </ol>
         </section>
 
@@ -94,12 +101,12 @@ desired effect
     <!-- /. Content Wrapper -->
 
     <!-- Main Footer -->
-    @include('dashboard.__includes._footer')
-    <!-- /. Main Footer -->
+@include('dashboard.__includes._footer')
+<!-- /. Main Footer -->
 
     <!-- Control Sidebar -->
-    @include('dashboard.__includes._control_sidebar')
-    <!-- /. Control Sidebar -->
+@include('dashboard.__includes._control_sidebar')
+<!-- /. Control Sidebar -->
 </div>
 <!-- ./wrapper -->
 
