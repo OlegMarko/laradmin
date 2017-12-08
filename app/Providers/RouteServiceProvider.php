@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapDashboardRoutes();
     }
 
     /**
@@ -54,6 +54,19 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
+    }
+
+    /**
+     * Define the "dashboard" routes for the application.
+     *
+     * @return void
+     */
+    protected function mapDashboardRoutes()
+    {
+        Route::prefix('dashboard')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dashboard.php'));
     }
 
     /**
